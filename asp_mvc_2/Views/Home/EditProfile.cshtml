@@ -18,16 +18,6 @@
     @Html.HiddenFor(model => model.SYSUserID)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.RoleName, htmlAttributes: new { @class =
-        "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DisplayFor(model => model.RoleName)
-            @Html.ValidationMessageFor(model => model.RoleName, "", new { @class
-            = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(model => model.LoginName, htmlAttributes: new { @class =
         "control-label col-md-2" })
         <div class="col-md-10">

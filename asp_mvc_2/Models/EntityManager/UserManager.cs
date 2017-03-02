@@ -333,5 +333,34 @@ namespace asp_mvc_2.Models.EntityManager
             }
             return UPV;
         }
+        public void AddBook(AddBook Ku, AddReport Rep)
+        {
+
+            using (DemoDBEntities1 db = new DemoDBEntities1())
+            {
+
+                Buku Bu = new Buku();
+                Bu.id_buku = Ku.id_buku;
+                Bu.judul = Ku.judul;
+                Bu.penulis = Ku.penulis;
+                Bu.penerbit = Ku.penerbit;
+                Bu.tahun = Ku.tahun;
+                Bu.stok = Ku.stok;
+
+                db.Bukus.Add(Bu);
+                db.SaveChanges();
+
+                Laporan Lap = new Laporan();
+                Lap.id_laporan = Rep.id_laporan;
+                Lap.id_pelanggan = Rep.id_pelanggan;
+                Lap.id_buku = Rep.id_buku;
+                Lap.keterangan = Rep.keterangan;
+                Lap.tgl_pinjam = DateTime.Parse(Rep.tgl_pinjam);
+                Lap.tgl_kembali = DateTime.Parse(Rep.tgl_kembali);
+
+                db.Laporans.Add(Lap);
+                db.SaveChanges();
+            }
+        }   
     }
 }

@@ -1,5 +1,9 @@
 ﻿@model asp_mvc_2.Models.ViewModel.UserDataView
 <span class="alert-success">@ViewBag.Message</span>
+@{
+    ViewBag.Title = "AdminOnly";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <div>
     <h1>List of Users</h1>
     <table class="table table-striped table-condensed table-hover">
@@ -34,6 +38,7 @@
             }
         </tbody>
     </table>
+    <h4>@Html.ActionLink("Kembali ke Halaman Sebelumnya", "AdminOnly", "Home")</h4>
 </div>
 
 <div id="divEdit" style="display:none">

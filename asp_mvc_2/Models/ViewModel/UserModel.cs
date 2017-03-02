@@ -87,4 +87,46 @@ namespace asp_mvc_2.Models.ViewModel
         public UserRoles UserRoles { get; set; }
         public UserGender UserGender { get; set; }
     }
+    public class AddBook
+    {
+        [Key]
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "ID Buku")]
+        public int id_buku { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Judul Buku")]
+        public string judul { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Penulis")]
+        public string penulis { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Penerbit")]
+        public string penerbit { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Tahun")]
+        public int tahun { get; set; }
+        [Display(Name = "Stok")]
+        public int stok { get; set; }
+    }
+    public class AddReport
+    {
+        [Key]
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "ID Laporan")]
+        public int id_laporan { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "ID Pelanggan")]
+        public int id_pelanggan { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "ID Buku")]
+        public int id_buku { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Keterangan")]
+        public string keterangan { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Tanggal Pinjam")]
+        public string tgl_pinjam { get; set; }
+        [Display(Name = "tgl_kembali")]
+        public string tgl_kembali { get; set; }
+    }
 }
