@@ -13,10 +13,10 @@ namespace asp_mvc_2.Models.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DemoDBEntities : DbContext
+    public partial class DemoDBEntities1 : DbContext
     {
-        public DemoDBEntities()
-            : base("name=DemoDBEntities")
+        public DemoDBEntities1()
+            : base("name=DemoDBEntities1")
         {
         }
     
@@ -25,15 +25,12 @@ namespace asp_mvc_2.Models.DB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Buku> Bukus { get; set; }
+        public virtual DbSet<Laporan> Laporans { get; set; }
         public virtual DbSet<LOOKUPRole> LOOKUPRoles { get; set; }
+        public virtual DbSet<Pelanggan> Pelanggans { get; set; }
         public virtual DbSet<SYSUser> SYSUsers { get; set; }
         public virtual DbSet<SYSUserProfile> SYSUserProfiles { get; set; }
         public virtual DbSet<SYSUserRole> SYSUserRoles { get; set; }
-
-        public System.Data.Entity.DbSet<asp_mvc_2.Models.ViewModel.UserSignUpView> UserSignUpViews { get; set; }
-
-        public System.Data.Entity.DbSet<asp_mvc_2.Models.ViewModel.UserLoginView> UserLoginViews { get; set; }
-
-        public System.Data.Entity.DbSet<asp_mvc_2.Models.ViewModel.UserProfileView> UserProfileViews { get; set; }
     }
 }

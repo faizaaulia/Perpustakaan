@@ -11,7 +11,7 @@ namespace asp_mvc_2.Models.EntityManager
         public void AddUserAccount(UserSignUpView user)
         {
 
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
 
                 SYSUser SU = new SYSUser();
@@ -58,14 +58,14 @@ namespace asp_mvc_2.Models.EntityManager
 
         public bool IsLoginNameExist(string loginName)
         {
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 return db.SYSUsers.Where(o => o.LoginName.Equals(loginName)).Any();
             }
         }
         public string GetUserPassword(string loginName)
         {
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 var user = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName));
                 if (user.Any())
@@ -76,7 +76,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public bool IsUserInRole(string loginName, string roleName)
         {
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 SYSUser SU = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
                 if (SU != null)
@@ -97,7 +97,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public List<LOOKUPAvailableRole> GetAllRoles()
         {
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 var roles = db.LOOKUPRoles.Select(o => new LOOKUPAvailableRole
                 {
@@ -112,7 +112,7 @@ namespace asp_mvc_2.Models.EntityManager
 
         public int GetUserID(string loginName)
         {
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 var user = db.SYSUsers.Where(o => o.LoginName.Equals(loginName));
                 if (user.Any())
@@ -123,7 +123,7 @@ namespace asp_mvc_2.Models.EntityManager
         public List<UserProfileView> GetAllUserProfiles()
         {
             List<UserProfileView> profiles = new List<UserProfileView>();
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 UserProfileView UPV;
                 var users = db.SYSUsers.ToList();
@@ -168,7 +168,7 @@ namespace asp_mvc_2.Models.EntityManager
             string userGender = string.Empty;
 
             userID = GetUserID(loginName);
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 userAssignedRoleID = db.SYSUserRoles.Where(o => o.SYSUserID == userID)?.FirstOrDefault().LOOKUPRoleID;
                 userGender = db.SYSUserProfiles.Where(o => o.SYSUserID == userID)?.FirstOrDefault().Gender;
@@ -194,7 +194,7 @@ namespace asp_mvc_2.Models.EntityManager
         public void UpdateUserAccount(UserProfileView user)
         {
 
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
@@ -266,7 +266,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public void DeleteUser(int userID)
         {
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
@@ -305,7 +305,7 @@ namespace asp_mvc_2.Models.EntityManager
         public UserProfileView GetUserProfile(int userID)
         {
             UserProfileView UPV = new UserProfileView();
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 var user = db.SYSUsers.Find(userID);
                 if (user != null)

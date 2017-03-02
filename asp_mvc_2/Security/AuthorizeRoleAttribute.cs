@@ -15,7 +15,7 @@ namespace asp_mvc_2.Security
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             bool authorize = false;
-            using (DemoDBEntities db = new DemoDBEntities())
+            using (DemoDBEntities1 db = new DemoDBEntities1())
             {
                 UserManager UM = new UserManager();
                 foreach (var roles in userAssignedRoles)

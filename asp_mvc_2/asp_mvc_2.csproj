@@ -189,6 +189,13 @@
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\DB\DemoModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DemoModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DB\DemoModel.edmx.diagram">
+      <DependentUpon>DemoModel.edmx</DependentUpon>
+    </Content>
     <None Include="scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="scripts\jquery-1.12.4.js" />
     <Content Include="scripts\jquery-1.12.4.min.js" />
@@ -225,6 +232,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DB\Buku.cs">
+      <DependentUpon>DemoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DB\DemoModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -240,7 +250,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DemoModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DB\Laporan.cs">
+      <DependentUpon>DemoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DB\LOOKUPRole.cs">
+      <DependentUpon>DemoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DB\Pelanggan.cs">
       <DependentUpon>DemoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DB\SYSUser.cs">
@@ -262,13 +278,6 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\DB\DemoModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DemoModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DB\DemoModel.edmx.diagram">
-      <DependentUpon>DemoModel.edmx</DependentUpon>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />

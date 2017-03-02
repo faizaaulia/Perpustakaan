@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="DemoDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Buku">
+          <Key>
+            <PropertyRef Name="id_buku" />
+          </Key>
+          <Property Name="id_buku" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="judul" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="penulis" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="penerbit" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tahun" Type="int" Nullable="false" />
+          <Property Name="stok" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Laporan">
+          <Key>
+            <PropertyRef Name="id_laporan" />
+          </Key>
+          <Property Name="id_laporan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_pelanggan" Type="int" Nullable="false" />
+          <Property Name="id_buku" Type="int" Nullable="false" />
+          <Property Name="keterangan" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tgl_pinjam" Type="date" Nullable="false" />
+          <Property Name="tgl_kembali" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="LOOKUPRole">
           <Key>
             <PropertyRef Name="LOOKUPRoleID" />
@@ -16,6 +39,16 @@
           <Property Name="RowCreatedDateTime" Type="datetime" />
           <Property Name="RowModifiedSYSUserID" Type="int" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Pelanggan">
+          <Key>
+            <PropertyRef Name="id_pelanggan" />
+          </Key>
+          <Property Name="id_pelanggan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="no_id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nama" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="alamat" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="no_tlp" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="SYSUser">
           <Key>
@@ -56,6 +89,30 @@
           <Property Name="RowModifiedSYSUserID" Type="int" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="datetime" />
         </EntityType>
+        <Association Name="FK__Laporan__id_buku__3B75D760">
+          <End Role="Buku" Type="Self.Buku" Multiplicity="1" />
+          <End Role="Laporan" Type="Self.Laporan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buku">
+              <PropertyRef Name="id_buku" />
+            </Principal>
+            <Dependent Role="Laporan">
+              <PropertyRef Name="id_buku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Laporan__id_pela__3A81B327">
+          <End Role="Pelanggan" Type="Self.Pelanggan" Multiplicity="1" />
+          <End Role="Laporan" Type="Self.Laporan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelanggan">
+              <PropertyRef Name="id_pelanggan" />
+            </Principal>
+            <Dependent Role="Laporan">
+              <PropertyRef Name="id_pelanggan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SYSUserPr__SYSUs__1BFD2C07">
           <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
           <End Role="SYSUserProfile" Type="Self.SYSUserProfile" Multiplicity="*" />
@@ -93,10 +150,21 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DemoDBModelStoreContainer">
+          <EntitySet Name="Buku" EntityType="Self.Buku" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Laporan" EntityType="Self.Laporan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOOKUPRole" EntityType="Self.LOOKUPRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pelanggan" EntityType="Self.Pelanggan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYSUser" EntityType="Self.SYSUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYSUserProfile" EntityType="Self.SYSUserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYSUserRole" EntityType="Self.SYSUserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Laporan__id_buku__3B75D760" Association="Self.FK__Laporan__id_buku__3B75D760">
+            <End Role="Buku" EntitySet="Buku" />
+            <End Role="Laporan" EntitySet="Laporan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Laporan__id_pela__3A81B327" Association="Self.FK__Laporan__id_pela__3A81B327">
+            <End Role="Pelanggan" EntitySet="Pelanggan" />
+            <End Role="Laporan" EntitySet="Laporan" />
+          </AssociationSet>
           <AssociationSet Name="FK__SYSUserPr__SYSUs__1BFD2C07" Association="Self.FK__SYSUserPr__SYSUs__1BFD2C07">
             <End Role="SYSUser" EntitySet="SYSUser" />
             <End Role="SYSUserProfile" EntitySet="SYSUserProfile" />
@@ -115,6 +183,32 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DemoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Buku">
+          <Key>
+            <PropertyRef Name="id_buku" />
+          </Key>
+          <Property Name="id_buku" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ISBN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="judul" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="penulis" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="penerbit" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tahun" Type="Int32" Nullable="false" />
+          <Property Name="stok" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Laporans" Relationship="Self.FK__Laporan__id_buku__3B75D760" FromRole="Buku" ToRole="Laporan" />
+        </EntityType>
+        <EntityType Name="Laporan">
+          <Key>
+            <PropertyRef Name="id_laporan" />
+          </Key>
+          <Property Name="id_laporan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_pelanggan" Type="Int32" Nullable="false" />
+          <Property Name="id_buku" Type="Int32" Nullable="false" />
+          <Property Name="keterangan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tgl_pinjam" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tgl_kembali" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Buku" Relationship="Self.FK__Laporan__id_buku__3B75D760" FromRole="Laporan" ToRole="Buku" />
+          <NavigationProperty Name="Pelanggan" Relationship="Self.FK__Laporan__id_pela__3A81B327" FromRole="Laporan" ToRole="Pelanggan" />
+        </EntityType>
         <EntityType Name="LOOKUPRole">
           <Key>
             <PropertyRef Name="LOOKUPRoleID" />
@@ -127,6 +221,17 @@
           <Property Name="RowModifiedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SYSUserRoles" Relationship="Self.FK__SYSUserRo__LOOKU__21B6055D" FromRole="LOOKUPRole" ToRole="SYSUserRole" />
+        </EntityType>
+        <EntityType Name="Pelanggan">
+          <Key>
+            <PropertyRef Name="id_pelanggan" />
+          </Key>
+          <Property Name="id_pelanggan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="no_id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nama" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="alamat" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="no_tlp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Laporans" Relationship="Self.FK__Laporan__id_pela__3A81B327" FromRole="Pelanggan" ToRole="Laporan" />
         </EntityType>
         <EntityType Name="SYSUser">
           <Key>
@@ -172,6 +277,30 @@
           <NavigationProperty Name="LOOKUPRole" Relationship="Self.FK__SYSUserRo__LOOKU__21B6055D" FromRole="SYSUserRole" ToRole="LOOKUPRole" />
           <NavigationProperty Name="SYSUser" Relationship="Self.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUserRole" ToRole="SYSUser" />
         </EntityType>
+        <Association Name="FK__Laporan__id_buku__3B75D760">
+          <End Role="Buku" Type="Self.Buku" Multiplicity="1" />
+          <End Role="Laporan" Type="Self.Laporan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buku">
+              <PropertyRef Name="id_buku" />
+            </Principal>
+            <Dependent Role="Laporan">
+              <PropertyRef Name="id_buku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Laporan__id_pela__3A81B327">
+          <End Role="Pelanggan" Type="Self.Pelanggan" Multiplicity="1" />
+          <End Role="Laporan" Type="Self.Laporan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pelanggan">
+              <PropertyRef Name="id_pelanggan" />
+            </Principal>
+            <Dependent Role="Laporan">
+              <PropertyRef Name="id_pelanggan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SYSUserRo__LOOKU__21B6055D">
           <End Role="LOOKUPRole" Type="Self.LOOKUPRole" Multiplicity="1" />
           <End Role="SYSUserRole" Type="Self.SYSUserRole" Multiplicity="*" />
@@ -208,11 +337,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DemoDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DemoDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bukus" EntityType="Self.Buku" />
+          <EntitySet Name="Laporans" EntityType="Self.Laporan" />
           <EntitySet Name="LOOKUPRoles" EntityType="Self.LOOKUPRole" />
+          <EntitySet Name="Pelanggans" EntityType="Self.Pelanggan" />
           <EntitySet Name="SYSUsers" EntityType="Self.SYSUser" />
           <EntitySet Name="SYSUserProfiles" EntityType="Self.SYSUserProfile" />
           <EntitySet Name="SYSUserRoles" EntityType="Self.SYSUserRole" />
+          <AssociationSet Name="FK__Laporan__id_buku__3B75D760" Association="Self.FK__Laporan__id_buku__3B75D760">
+            <End Role="Buku" EntitySet="Bukus" />
+            <End Role="Laporan" EntitySet="Laporans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Laporan__id_pela__3A81B327" Association="Self.FK__Laporan__id_pela__3A81B327">
+            <End Role="Pelanggan" EntitySet="Pelanggans" />
+            <End Role="Laporan" EntitySet="Laporans" />
+          </AssociationSet>
           <AssociationSet Name="FK__SYSUserRo__LOOKU__21B6055D" Association="Self.FK__SYSUserRo__LOOKU__21B6055D">
             <End Role="LOOKUPRole" EntitySet="LOOKUPRoles" />
             <End Role="SYSUserRole" EntitySet="SYSUserRoles" />
@@ -231,7 +371,32 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DemoDBModelStoreContainer" CdmEntityContainer="DemoDBEntities">
+        <EntityContainerMapping StorageEntityContainer="DemoDBModelStoreContainer" CdmEntityContainer="DemoDBEntities1">
+          <EntitySetMapping Name="Bukus">
+            <EntityTypeMapping TypeName="DemoDBModel.Buku">
+              <MappingFragment StoreEntitySet="Buku">
+                <ScalarProperty Name="id_buku" ColumnName="id_buku" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="judul" ColumnName="judul" />
+                <ScalarProperty Name="penulis" ColumnName="penulis" />
+                <ScalarProperty Name="penerbit" ColumnName="penerbit" />
+                <ScalarProperty Name="tahun" ColumnName="tahun" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Laporans">
+            <EntityTypeMapping TypeName="DemoDBModel.Laporan">
+              <MappingFragment StoreEntitySet="Laporan">
+                <ScalarProperty Name="id_laporan" ColumnName="id_laporan" />
+                <ScalarProperty Name="id_pelanggan" ColumnName="id_pelanggan" />
+                <ScalarProperty Name="id_buku" ColumnName="id_buku" />
+                <ScalarProperty Name="keterangan" ColumnName="keterangan" />
+                <ScalarProperty Name="tgl_pinjam" ColumnName="tgl_pinjam" />
+                <ScalarProperty Name="tgl_kembali" ColumnName="tgl_kembali" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LOOKUPRoles">
             <EntityTypeMapping TypeName="DemoDBModel.LOOKUPRole">
               <MappingFragment StoreEntitySet="LOOKUPRole">
@@ -242,6 +407,17 @@
                 <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
                 <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
                 <ScalarProperty Name="RowModifiedDateTime" ColumnName="RowModifiedDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pelanggans">
+            <EntityTypeMapping TypeName="DemoDBModel.Pelanggan">
+              <MappingFragment StoreEntitySet="Pelanggan">
+                <ScalarProperty Name="id_pelanggan" ColumnName="id_pelanggan" />
+                <ScalarProperty Name="no_id" ColumnName="no_id" />
+                <ScalarProperty Name="nama" ColumnName="nama" />
+                <ScalarProperty Name="alamat" ColumnName="alamat" />
+                <ScalarProperty Name="no_tlp" ColumnName="no_tlp" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
