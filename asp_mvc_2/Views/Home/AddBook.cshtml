@@ -1,7 +1,7 @@
 ﻿@model asp_mvc_2.Models.ViewModel.AddBook
 
 @{
-    ViewBag.Title = "SignUp";
+    ViewBag.Title = "Tambah Data Buku";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,15 +14,6 @@
 <div class="form-horizontal">
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.id_buku, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.id_buku, new { htmlAttributes = new
-            { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.id_buku, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
     <div class="form-group">
         @Html.LabelFor(model => model.judul, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -84,6 +75,13 @@
     </div>
 </div>
 }
+
+<div>
+    @if(ViewBag.message != null) {
+        <h4 style="color:red">@ViewBag.message</h4>
+        <br />
+    }
+</div>
 
 <div>
     @Html.ActionLink("Back to Main", "Index","Home")
