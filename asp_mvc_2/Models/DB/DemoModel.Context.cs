@@ -13,10 +13,10 @@ namespace asp_mvc_2.Models.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DemoDBEntities1 : DbContext
+    public partial class DemoDBEntities2 : DbContext
     {
-        public DemoDBEntities1()
-            : base("name=DemoDBEntities1")
+        public DemoDBEntities2()
+            : base("name=DemoDBEntities2")
         {
         }
     

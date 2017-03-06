@@ -95,5 +95,20 @@ namespace asp_mvc_2.Controllers
             }
             return View(profile);
         }
+        public ActionResult AddBook()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddBook(AddBook ADB)
+        {
+            if (ModelState.IsValid)
+            {
+                UserManager UM = new UserManager();
+                UM.TambahBuku(ADB);
+                return RedirectToAction("Welcome", "Home");
+            } 
+            return View();
+        }
     }
 }

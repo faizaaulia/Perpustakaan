@@ -337,7 +337,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DemoDBEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DemoDBEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bukus" EntityType="Self.Buku" />
           <EntitySet Name="Laporans" EntityType="Self.Laporan" />
           <EntitySet Name="LOOKUPRoles" EntityType="Self.LOOKUPRole" />
@@ -371,7 +371,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DemoDBModelStoreContainer" CdmEntityContainer="DemoDBEntities1">
+        <EntityContainerMapping StorageEntityContainer="DemoDBModelStoreContainer" CdmEntityContainer="DemoDBEntities2">
           <EntitySetMapping Name="Bukus">
             <EntityTypeMapping TypeName="DemoDBModel.Buku">
               <MappingFragment StoreEntitySet="Buku">

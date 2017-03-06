@@ -90,22 +90,26 @@ namespace asp_mvc_2.Models.ViewModel
     public class AddBook
     {
         [Key]
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Isi ID Buku!")]
         [Display(Name = "ID Buku")]
         public int id_buku { get; set; }
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Isi Judul Buku!")]
         [Display(Name = "Judul Buku")]
         public string judul { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "Penulis")]
+        [Required(ErrorMessage = "* Isi ISBN")]
+        [Display(Name = "ISBN")]
+        public string ISBN { get; set; }
+        [Required(ErrorMessage = "* Isi Nama Penulis!")]
+        [Display(Name = "Penulis Buku")]
         public string penulis { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "Penerbit")]
+        [Required(ErrorMessage = "* Isi Nama Penerbit!")]
+        [Display(Name = "Penerbit Buku")]
         public string penerbit { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "Tahun")]
+        [Required(ErrorMessage = "* Isi Tahun Terbit")]
+        [Display(Name = "Tahun Terbit")]
         public int tahun { get; set; }
-        [Display(Name = "Stok")]
+        [Required(ErrorMessage = "* Isi Stok!")]
+        [Display(Name = "Stok Buku")]
         public int stok { get; set; }
     }
     public class AddReport

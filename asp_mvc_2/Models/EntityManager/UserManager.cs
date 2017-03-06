@@ -11,7 +11,7 @@ namespace asp_mvc_2.Models.EntityManager
         public void AddUserAccount(UserSignUpView user)
         {
 
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
 
                 SYSUser SU = new SYSUser();
@@ -58,14 +58,14 @@ namespace asp_mvc_2.Models.EntityManager
 
         public bool IsLoginNameExist(string loginName)
         {
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 return db.SYSUsers.Where(o => o.LoginName.Equals(loginName)).Any();
             }
         }
         public string GetUserPassword(string loginName)
         {
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 var user = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName));
                 if (user.Any())
@@ -76,7 +76,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public bool IsUserInRole(string loginName, string roleName)
         {
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 SYSUser SU = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
                 if (SU != null)
@@ -97,7 +97,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public List<LOOKUPAvailableRole> GetAllRoles()
         {
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 var roles = db.LOOKUPRoles.Select(o => new LOOKUPAvailableRole
                 {
@@ -112,7 +112,7 @@ namespace asp_mvc_2.Models.EntityManager
 
         public int GetUserID(string loginName)
         {
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 var user = db.SYSUsers.Where(o => o.LoginName.Equals(loginName));
                 if (user.Any())
@@ -123,7 +123,7 @@ namespace asp_mvc_2.Models.EntityManager
         public List<UserProfileView> GetAllUserProfiles()
         {
             List<UserProfileView> profiles = new List<UserProfileView>();
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 UserProfileView UPV;
                 var users = db.SYSUsers.ToList();
@@ -168,7 +168,7 @@ namespace asp_mvc_2.Models.EntityManager
             string userGender = string.Empty;
 
             userID = GetUserID(loginName);
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 userAssignedRoleID = db.SYSUserRoles.Where(o => o.SYSUserID == userID)?.FirstOrDefault().LOOKUPRoleID;
                 userGender = db.SYSUserProfiles.Where(o => o.SYSUserID == userID)?.FirstOrDefault().Gender;
@@ -193,8 +193,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public void UpdateUserAccount(UserProfileView user)
         {
-
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
@@ -266,7 +265,7 @@ namespace asp_mvc_2.Models.EntityManager
         }
         public void DeleteUser(int userID)
         {
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
@@ -305,7 +304,7 @@ namespace asp_mvc_2.Models.EntityManager
         public UserProfileView GetUserProfile(int userID)
         {
             UserProfileView UPV = new UserProfileView();
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
                 var user = db.SYSUsers.Find(userID);
                 if (user != null)
@@ -333,15 +332,14 @@ namespace asp_mvc_2.Models.EntityManager
             }
             return UPV;
         }
-        public void AddBook(AddBook Ku, AddReport Rep)
+        public AddBook TambahBuku(AddBook Ku)
         {
-
-            using (DemoDBEntities1 db = new DemoDBEntities1())
+            using (DemoDBEntities2 db = new DemoDBEntities2())
             {
-
                 Buku Bu = new Buku();
                 Bu.id_buku = Ku.id_buku;
                 Bu.judul = Ku.judul;
+                Bu.ISBN = Ku.ISBN;
                 Bu.penulis = Ku.penulis;
                 Bu.penerbit = Ku.penerbit;
                 Bu.tahun = Ku.tahun;
@@ -349,18 +347,9 @@ namespace asp_mvc_2.Models.EntityManager
 
                 db.Bukus.Add(Bu);
                 db.SaveChanges();
-
-                Laporan Lap = new Laporan();
-                Lap.id_laporan = Rep.id_laporan;
-                Lap.id_pelanggan = Rep.id_pelanggan;
-                Lap.id_buku = Rep.id_buku;
-                Lap.keterangan = Rep.keterangan;
-                Lap.tgl_pinjam = DateTime.Parse(Rep.tgl_pinjam);
-                Lap.tgl_kembali = DateTime.Parse(Rep.tgl_kembali);
-
-                db.Laporans.Add(Lap);
-                db.SaveChanges();
+                
             }
+            return Ku;
         }   
     }
 }
