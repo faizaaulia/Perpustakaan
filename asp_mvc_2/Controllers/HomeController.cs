@@ -105,15 +105,8 @@ namespace asp_mvc_2.Controllers
             if (ModelState.IsValid)
             {
                 UserManager UM = new UserManager();
-                if(UM.CekBuku(ADB.judul))
-                {
-                    UM.TambahBuku(ADB);
-                    ViewBag.message = ADB.judul + " " + "berhasil ditambahkan";
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Judul Buku Sudah Ada");
-                }
+                UM.TambahBuku(ADB);
+                ViewBag.message = ADB.judul + " " + "berhasil ditambahkan";
             } 
             return View();
         }

@@ -351,22 +351,5 @@ namespace asp_mvc_2.Models.EntityManager
             }
             return Ku;
         }
-        public bool CekBuku(string Ku)
-        {
-            using (DemoDBEntities2 db = new DemoDBEntities2())
-            {
-                foreach(Buku judul in db.Bukus)
-                {
-                    if(Ku.Equals(judul.judul) || Ku == judul.judul)
-                    {
-                        return false;
-                    } else
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
     }
 }
