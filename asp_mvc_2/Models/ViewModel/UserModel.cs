@@ -112,25 +112,5 @@ namespace asp_mvc_2.Models.ViewModel
         [Display(Name = "Stok Buku")]
         public int stok { get; set; }
     }
-    public class AddReport
-    {
-        [Key]
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "ID Laporan")]
-        public int id_laporan { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "ID Pelanggan")]
-        public int id_pelanggan { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "ID Buku")]
-        public int id_buku { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "Keterangan")]
-        public string keterangan { get; set; }
-        [Required(ErrorMessage = "*")]
-        [Display(Name = "Tanggal Pinjam")]
-        public string tgl_pinjam { get; set; }
-        [Display(Name = "tgl_kembali")]
-        public string tgl_kembali { get; set; }
-    }
+    
 }
